@@ -10,6 +10,8 @@ RUN npm install --legacy-peer-deps
 
 # Copy source code and build the app
 COPY . .
+# Add this line to fix Webpack crypto issue
+ENV NODE_OPTIONS=--openssl-legacy-provider
 RUN npm run build
 
 # Stage 2: Serve app with Nginx
