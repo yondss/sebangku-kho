@@ -45,14 +45,14 @@ export default () => {
         <Col xs={12} className="mb-4 d-none d-sm-block">
           <SalesValueWidget
             title="Sales Value"
-            value="10,567"
+            value="$11k"
             percentage={10.57}
           />
         </Col>
         <Col xs={12} className="mb-4 d-sm-none">
           <SalesValueWidgetPhone
             title="Sales Value"
-            value="10,567"
+            value="$11k"
             percentage={10.57}
           />
         </Col>
