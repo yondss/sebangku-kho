@@ -27,6 +27,7 @@ jobs:
           
           # SSH into the server to handle the service update
           ssh -o StrictHostKeyChecking=no ${SERVER_USER}@production-github-actions-demo.hagaiacademy.com << EOF
+            set +x
             echo "🛑 Stopping running Docker containers..."
             running_containers=\$(sudo docker ps -q)
           
