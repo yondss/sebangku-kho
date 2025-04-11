@@ -1,0 +1,45 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to deploy'
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to Server
+        env:
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          VERSION: ${{ github.event.inputs.version }}
+        run: |
+          # Setup SSH
+          mkdir -p ~/.ssh
+          echo "${SSH_PRIVATE_KEY}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          
+          # SSH into the server to handle the service update
+          ssh -o StrictHostKeyChecking=no ${SERVER_USER}@production-github-actions-demo.hagaiacademy.com << EOF
+            echo "🛑 Stopping running Docker containers..."
+            running_containers=\$(sudo docker ps -q)
+          
+            if [ -n "\$running_containers" ]; then
+              sudo docker stop \$running_containers
+            else
+              echo "No running containers found."
+            fi
+          
+            echo "🚀 Starting Docker container in background with version: ${VERSION}"
+            nohup sudo docker run -it -p 3000:3000 hagay3/github-actions-demo:${VERSION} > docker.log 2>&1 &
+            echo "✅ Container started. Logs: docker.log"
+          EOF
+
+          # Clean up SSH keys
+          rm -rf ~/.ssh/id_rsa
