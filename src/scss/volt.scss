@@ -1,10 +1,17 @@
-/* Pindahkan Google Fonts ke <head> HTML */
+/* Google Fonts harus ditambahkan di index.html <head> */
+/* <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800&display=swap" rel="stylesheet"> */
 
-@import "../../node_modules/bootstrap/scss/functions";
-@import "../../node_modules/bootstrap/scss/mixins";
+/* Gunakan path dari node_modules dengan prefix ~ */
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/mixins";
+
+/* Volt Custom Variables (harus tetap diimport sebelum bootstrap) */
 @import "volt/variables";
-@import "../../node_modules/bootstrap/scss/bootstrap";
 
+/* Bootstrap core */
+@import "~bootstrap/scss/bootstrap";
+
+/* Komponen custom dari Volt */
 @import "volt/vendor";
 @import "volt/mixins";
 @import "volt/functions";
