@@ -1,9 +1,12 @@
-@import "../../node_modules/bootstrap/scss/mixins";
+/* Pindahkan Google Fonts ke <head> HTML */
+
 @import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/mixins";
 @import "volt/variables";
 @import "../../node_modules/bootstrap/scss/bootstrap";
+
 @import "volt/vendor";
-@import "volt/mixins"; 
+@import "volt/mixins";
 @import "volt/functions";
 @import "volt/reboot";
 @import "volt/utilities";
